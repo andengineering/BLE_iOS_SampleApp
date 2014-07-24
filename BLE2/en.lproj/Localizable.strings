@@ -1,0 +1,235 @@
+/*
+ Localizable.strings
+ WellnessConnected
+ 
+ Created by Chenchen Zheng on 3/25/13.
+ Copyright (c) 2013 Chenchen Zheng. All rights reserved.
+ */
+
+/*
+ Localizable.strings
+ Health_Watch
+ 
+ Created by Prakash on 12/4/12.
+ 
+ */
+
+"WELCOME"               ="Welcome";
+"ACCOUNT_CONFIGURATION" ="Account configuration";
+"LOGIN_SIGNUP"          ="LogIn/Signup";
+"EMAILID"               ="Email Id";
+"SIGNUP"                ="Register";
+"LOGIN"                 ="Log in";
+"SIGNUPWITHFACEBOOK"    ="Sign up with Facebook";
+"FORGOTPASSWORD"        ="Forgot password";
+"GUEST"                 ="Guest";
+"FIRSTNAME"             ="First name";
+"LASTNAME"              ="Last name";
+"PASSWORD"              ="Password";
+"AGE"                   ="age";
+"DATEOFBIRTH"           ="Date of birth";
+"GENDER"                ="Gender";
+"HEIGHT"                ="Height";
+"HEIGHTUNIT"            ="Height Unit";
+"HINTQUESTION"          ="Hint question";
+"HINTANSWER"            ="Hint Answer";
+"NEWPASSWORD"           ="New password";
+"HOMESCREEN"            ="Home screen";
+"SETTINGS"              ="Settings";
+"ACCOUNTREGISTRATION"	="Account registration";
+"DBCONFIGURATION"       ="DB configuration";
+"LOCALSTORAGE"          ="Local data storage";
+"EDITPROFILEINFORMATION"="Edit profile information";
+"INFO"                  ="Info";
+"LANGUAGESETTING"       ="Language setting";
+"REMINDER"              ="Reminder";
+"EXPORT"                ="Export";
+"CURRENTACTIVEACCOUNT"	="Currently active account";
+"LOGOUT"                ="Logout";
+"SYNCPBT"               ="Set device clock";
+"WEIGHTUnits"               ="Weight Units";
+"DONE"                  ="Done";
+"SAVE"                  ="Save";
+"OK"                    ="Ok";
+"CANCEL"                ="Cancel";
+"REMOVE"                ="Remove";
+"EDIT"                  ="Edit";
+"DELECT"                ="Delect";
+"PLEASEENTERPASSWORD"	="Please enter password";
+"STARTDATE"             ="Startdate";
+"ENDDATE"               ="Enddate";
+"WEIGHT"                ="Weight";
+"BMI"                   ="BMI.";
+"SYS"                   ="SYS.";
+"DIA"                   ="DIA.";
+"PUL"                   ="PUL.";
+"MMHG"                  ="mmHg";
+"FAT"                   ="Fat.";
+"BASAL"                 ="BASAL.";
+"MUSM"                  ="MUSM.";
+"BWM"                   ="BWM.";
+"KG"                    ="kg";
+"KCAL"                  ="kcal";
+"WS"                    ="WS";
+"BCA"                   ="BCA";
+"BP"                    ="BP";
+"LIST"                  ="List";
+"GRAPH"                 ="Graph";
+"NOTES"                 ="Notes";
+"CMS"                   ="cms";
+"FT"                    ="ft";
+"INCORRECTPASSWORD"     ="Incorrect password";
+"CANNOTCONNECTTOINTERNET"	="Cannot connect to internet";
+"CHECKFORINTERNET"      ="Please be sure that your device is connected to the internet and try again";
+"RETRY"                 ="Retry";
+"LOGINFAILURE"          ="Login Failure";
+"PLEASEENTERVALIDEMAILADRRESS"	="Please enter valid Email address";
+"BLANKUSERNAME"         ="Blank username/password";
+"BLANKUSERNAME_REGISTER"= "Some fields are blank, Please check";
+"EQAORMORETHENFOUR"     = "User First,Last name and Password should be greater than or equal to four character";
+"PLEASEENTEREMAILADDRESS"	="Please enter email address";
+"ERROR"                 ="Error";
+"LOGGINGFAILED"         ="Logging failed";
+"INVALIDCREDENTAILS"	="Invalid credentails";
+"ACCOUNTCREATIONFAILURE"	="Account creation failure";
+"NETWORKPROBLEM"        ="Network problem";
+"LOGGED AS GUEST USER"	="Logged as guest user";
+"GUESTCANTUSETHIS"      ="Guest cannot use this";
+"WEBSERVICECALLFAILURE"	="web service call failure";
+"INCORRECTFORMAT"       ="Incorrect format";
+"HEIGHTINPUTISINCORRECT"	="Height input is incorrect";
+"WEIGHTINPUTISINCORRECT"	="Weight input is incorrect";
+"USERPROFILECREATIONFAILURE"	="User profile creation failure";
+"USERPROFILEUPDATEFAILURE"	="User profile update failure";
+"USERPROFILEDELETEFAILURE"	="User profile delete failure";
+"PLEASEENTERHINTANSWER"	="Please enter hint answer";
+"INCORRECTANSWER"       ="Incorrect answer";
+"PASSWORDCHANGEUNSUCCESSFUL"	="Password change unsuccessful";
+"INCORRECTPASSWORD"     ="Incorrect password";
+"PLEASETRYAGAIN"        ="Please try again";
+"YOUHAVESELECTEDDAFAULTUSER"	="You have selected default user";
+"GUESTCANTBEDELECTED"	="Default user Guest cannot be deleted";
+"LOCALSTORAGEISDISABLED"	="Local storage is disabled";
+"DOYOUWANTTOSTOREDATALOCALLY"	="Do you want to store data locally";
+"CUFFERROR"             ="Cuff error please check connection again";
+"INVALIDDATE"           ="Invalid date";
+"PLEASESELECTVALIDSTARTANDENDDATE"	="Please select valid start and end date";
+"SYSDIAORPULSEFORMAT" 	="Systolic,diastolic or pulserate input is incorrect";
+"BCAINVALIDINPUTFORMAT"	="Weight,impedeance,fat,hieght,basal meta , musclemass or Body water mass is incorrect";
+"REMINDER"              ="Reminder";
+"PLEASEGIVEPROPERNAMEFORREMINDER"	="Please give proper name for reminder";
+"MALE"                  ="Male";
+"FEMALE"                ="Female";
+"EDITPROFILE"           ="Edit profile";
+"DDMMYYYY"              ="DD MM YYYY";
+"MMDDYYYY"              ="MM DD YYYY";
+"PASSWORDCHECK"         ="Password check";
+"BLANKUSERDOB"          ="Blank name /Date of birth";
+"SELECTHINTQUESTION"    ="Select hint question";
+"CONFIRMNEWPASSWORD"    ="Confirm new password";
+"PASSWORDNOTMATCHNIG"   = "Both password are not matching";
+"HELLO"                 ="Hello";
+"CHANGEACCOUNT"         ="Change account";
+"MEASUREMENTRESULT"     ="Measurement result";
+"HISTORY"               ="History";
+"GRAPHVIEW"             ="Graph view";
+"MANUALDATAENTRY"       ="Manual data entry";
+"TERMANDCONDITION"      ="Terms and Condition";
+"DATE"                  ="Date";
+"DETAILS"               ="Details";
+"M"                     ="M";
+"CALENDER"              ="Calender";
+"TODAY"                 ="Today";
+"DAYOFMESURMENT"        ="Day of Measurment";
+"HOUROFMESURMENT"       ="Hour of Measurment";
+"MINUTEOFMESURMENT"     ="Minute of Measurment";
+"TIMESTAMPS"            ="Timestamps";
+"MEASUREDDATA"          ="Measured Data";
+"MEASURED"              ="Measured";
+"TRASMITTED"            ="Transmitted";
+"SYSTOLIC"              ="SYS.";
+"DIASTOLIC"             ="DIA.";
+"PULSERATE"             ="PULSE";
+"BCADATA"               ="Weight,Fat,BWM,MM,Bas Met";
+"BASAL_METABOLISM"      ="Basal Metabolism";
+"MUSCLEMASS"            ="Muscle Mass";
+"BODY_WATER_MASS"       ="Body water mass";
+"IMPORTANDEXPORT"       ="Import and Export";
+"SELECTDEVICE"          ="Select device";
+"IMPORT"                ="Import";
+"INVALID DATA"          ="Invalid data";
+"ACTIVEPROFILE"         ="Active profile";
+"HW watch"              ="HW watch";
+"PBT_SETTING"           ="PBT Setting";
+"PIN"                   ="PIN";
+"MEMORY_SIZE"           ="Memory size";
+"SERVICE_NAME"          ="Service name";
+"COD"                   ="COD";
+"ADD_REMNDER"           ="Add Reminder";
+"REPEAT"                ="Repeat";
+"SOUND"                 ="Sound";
+"LABEL"                 ="Label";
+"EVERYHOUR"             ="Every hour";
+"EVERYDAY"              ="Every day";
+"EVERYWEEK"             ="Every week";
+"EVERYMONTH"            ="Every month";
+"EVERYYEAR"             ="Every year";
+"ENTERALARMLABEL"       ="Enter Alarm label";
+"EMAILIDINVALIDFORMAT" ="EmailID is in invalid format.";
+"PASSWORDCHANGEDUNSUCCESSFUL" = "Password change unsuccessful";
+"PASSWORDCHANGEDSUCCESSFUL" = "Password changed successfully";
+"REMINDERSETTING" = "Reminder Setting";
+"PULSE"           ="Pulse";
+"BLOODPRESSURE"   ="Blood pressure";
+"BACK"              ="Back";
+"NODATAFOUNDDURINGSELECTEDINTERVAL"  ="No data found during selected interval";
+"General Settings" = "General Settings";
+"Units" = "Units";
+"Metrics (Kilograms, Meters)" = "Metrics (Kilograms, Meters)";
+"Imperials (Pounds, Feet)" = "Imperials (Pounds, Feet)";
+"Sync Device Time" = "Sync Device Time";
+"Systolic/Diastolic"  = "Systolic/Diastolic";
+"Systolic/Diastolic/Pulse" = "SYS/DIA/PUL";
+"/Pulse/MAP" = "/Pulse";
+"AGREE" = "Agree";
+"DD MM YYYY"= "dd/MM/yyyy";
+"MM DD YYYY"= "MM/dd/yyyy";
+"YYYY MM DD"= "yyyy/MM/dd";
+"DateTime" = "Date/Time";
+"Weight/BMI" = "Weight / BMI";
+"Weight/Fat/BASAL/MUSM/BWM" = "Weight/Fat/BASAL/MUSM/BWM";
+"SettingFooter1" = "Above settings will execute after the next connection with your device";
+"locale" = "en_US";
+"SettingHeader1" = "Device Settings";
+"SettingHeader2" = "App Settings";
+"SettingHeader3" = "Personal Information";
+"SettingSyncTime" = "Sync Time";
+"SettingSetDefault" = "Set Default";
+"SettingEnableAutolaunch" = "Enable Autolaunch";
+"SettingDisableAutolaunch" = "Disable Autolaunch";
+"TakeAMeasurement" = "Take a measurement first!";
+"termandcondition_html" = "termandcondition-eng";
+"UpdatePI" = "Update PI";
+"GRAV" = "Grav.(mm/s^2)";
+"TARE" = "Tare";
+"TareUnit" = "Tare Unit";
+
+/*health vault*/
+/* Format to display connection error */
+"Connection error key" = "Connection error: %@";
+
+/* Format to display HealthVault error message */
+"Error in talking to HealthVault key" = "Error in talking to HealthVault: %@";
+
+/* Format to display web transport message */
+"HealthVault web transport message key" = "HealthVault web transport message:\n%@";
+
+/* Format to display amount of received bytes */
+"Received bytes key" = "Received: %d bytes";
+
+/* Format to display incorrect response */
+"Response was not a valid HealthVault response key" = "Response was not a valid HealthVault response: %@";
+
+"Loading" = "Loading";
+"Sign In to HealthVault" = "Sign In to HealthVault";
+"Data Upload to HealthVault" = "Data Upload to HealthVault";
