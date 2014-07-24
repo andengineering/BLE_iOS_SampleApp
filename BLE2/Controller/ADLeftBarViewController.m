@@ -16,7 +16,7 @@
 #import "ADSettingViewController.h"
 
 //for temp testing put replace setting as Log in
-#import "ADLoginViewController.h"
+//#import "ADLoginViewController.h"
 
 @interface ADLeftBarViewController ()
 @property (strong) NSArray *sectionHeaders;
@@ -143,9 +143,9 @@
     self.sidePanelController.centerPanel = navi;
   } else if (indexPath.row == 1) {  //Add/Remove Device
     self.sidePanelController.centerPanel = [[UINavigationController alloc] initWithRootViewController:[ADPairingViewController new]];
-  } else if (indexPath.row == 2) { //Log in
+  } /*else if (indexPath.row == 2) { //Log in
     self.sidePanelController.centerPanel = [[UINavigationController alloc] initWithRootViewController:[[ADLoginViewController alloc] initWithStyle:UITableViewStyleGrouped]];
-  }
+  } */
 }
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section
 {
