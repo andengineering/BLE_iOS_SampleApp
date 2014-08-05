@@ -9,11 +9,14 @@
 #import "ADPairingViewController.h"
 #import "ANDBLEDefines.h"
 #import "ANDDevice.h"
+#import "ADBloodPressure.h"
+#import "ADWeightScale.h"
 
 @interface ADPairingViewController () <ANDDeviceDelegate>
 
 @property (nonatomic, strong) ANDDevice *device;
 @property (nonatomic, strong) NSMutableDictionary *devices;
+@property NSString *type;
 
 @end
 
@@ -101,13 +104,41 @@
   CBPeripheral *device = [self.devices objectForKey:[tableView cellForRowAtIndexPath:indexPath].textLabel.text];
   
   //  ANDDevice *andDevice = [[ANDDevice alloc] init];
+    //Setting the type of the device
+    if (device.name != nil) {
+        if ([device.name rangeOfString:@"A&D_UC-352"].location != NSNotFound)
+        {
+            
+            NSLog(@"Device selected is weight scale");
+            self.type = @"ws";
+           
+        } else if ([device.name rangeOfString:@"651"].location != NSNotFound || [device.name rangeOfString:@"BLP"].location != NSNotFound)
+        {
+            NSLog(@"Device selected is weight scale");
+            self.type = @"bp";
+            
+        } else {
+            self.type = @"unknowm";
+        }
+
+    }
   [self.device connectPeripheral:device];
 }
 
 - (void) deviceReady
 {
-  NSLog(@"deviceReady called");
   self.device.connectionStats = @"Connected";
+    if ([self.type isEqual:@"bp"])
+  {
+      NSLog(@"Enter bp device");
+      ADBloodPressure *bp = [[ADBloodPressure alloc] initWithDevice:self.device];
+     [bp readMeasurementForSetup];
+  }else if ([self.type isEqual:@"ws"])
+  {
+     NSLog(@"Enter WS device");
+     ADWeightScale *ws = [[ADWeightScale alloc]initWithDevice:self.device];
+     [ws readMeasurementForSetup];
+  }
   [self.device readDeviceInformation];
 }
 

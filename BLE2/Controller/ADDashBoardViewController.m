@@ -88,14 +88,16 @@
 - (void) deviceReady
 {
   NSLog(@"deviceReady called ");
-  
-  //  [self.tableView reloadData];
-  //  [self.bp pair];
+
   if ([self.type isEqual:@"bp"]) {
+    NSLog(@"BP Device");
     ADBloodPressure *bp = [[ADBloodPressure alloc] initWithDevice:self.device];
+    [bp setTime];
     [bp readMeasurement];
   } else if ([self.type isEqual:@"ws"]) {
     ADWeightScale *ws = [[ADWeightScale alloc] initWithDevice:self.device];
+    NSLog(@"WS Device");
+    [ws setTime];
     [ws readMeasurement];
   } else if ([self.type isEqual:@"am"]) {
     ADActivityMonitor *am = [[ADActivityMonitor alloc] initWithDevice:self.device];

@@ -49,5 +49,6 @@ typedef NS_ENUM(NSInteger, ADBPOrder) {
 - (id)initWithDevice:(ANDDevice *)device;
 - (void)pair;
 - (void)readMeasurement;
+- (void)readMeasurementForSetup;
 
 @end

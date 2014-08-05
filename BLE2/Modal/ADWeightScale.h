@@ -54,5 +54,6 @@ typedef NS_ENUM(NSInteger, ARWeightScaleOrder) {
 - (id)initWithDevice:(ANDDevice *)device;
 - (void)pair;
 - (void)readMeasurement;
+-(void) readMeasurementForSetup;
 
 @end
