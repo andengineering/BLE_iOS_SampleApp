@@ -339,6 +339,58 @@ characteristicUUID: [CBUUID UUIDWithString:BloodPressureMeasurement_Char]
   
 }
 
+//need set time during pairing
+#pragma mark - Write Time Stamp For Blood Pressure
+- (void) setTime
+{
+    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSDateComponents *components = [calendar components:NSDayCalendarUnit |NSMonthCalendarUnit | NSYearCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit fromDate:[NSDate date]];
+    
+    NSInteger year = components.year;
+    NSMutableData *yearData = [[NSMutableData alloc] initWithBytes:&year length:sizeof(year)];
+    int year1 = *(int *)[[yearData subdataWithRange:NSMakeRange(0, 1)] bytes];
+    int year2 = *(int *)[[yearData subdataWithRange:NSMakeRange(1, 1)] bytes];
+    
+    //int year1 = 176;
+    //int year2 = 8;
+    
+    int month = components.month;
+    
+    int day = components.day;
+    
+    int hour = components.hour;
+    
+    int min = components.minute;
+    
+    int second = components.second;
+    
+    char bytes[7];
+    
+    bytes[0] = year1;
+    
+    bytes[1] = year2;
+    
+    bytes[2] = month;
+    
+    bytes[3] = day;
+    
+    bytes[4] = hour;
+    
+    bytes[5] = min;
+    
+    bytes[6] = second;
+    
+    
+    NSData *data = [[NSData alloc] initWithBytes:&bytes length:sizeof(bytes)];
+    NSLog(@"data is %@", data);
+    
+    [self writeValue:[CBUUID UUIDWithString: BloodPressure_Service]
+  characteristicUUID:[CBUUID UUIDWithString: DateTime_Char]
+                   p:self.activePeripheral
+                data:data];
+    
+}
+
 
 //need set time during pairing
 
@@ -346,21 +398,7 @@ characteristicUUID: [CBUUID UUIDWithString:BloodPressureMeasurement_Char]
 {
   //
   NSLog(@"bp readMeasurment");
-    /*
-  [self readValue:[CBUUID UUIDWithString:BloodPressure_Service]
-characteristicUUID:[CBUUID UUIDWithString:DateTime_Char]
-                p:self.activePeripheral];
-  
-  [self notification:[CBUUID UUIDWithString:BloodPressure_Service]
-  characteristicUUID:[CBUUID UUIDWithString:BloodPressureMeasurement_Char]
-                   p:self.activePeripheral
-                  on:YES]; */
-  
-
-  //  [self readValue:[CBUUID UUIDWithString:BloodPressure_Service]
-  //characteristicUUID:[CBUUID UUIDWithString:BloodPressureMeasurement_Char]
-  //                p:self.activePeripheral];
-    [self readValue:[CBUUID UUIDWithString:BloodPressure_Service]
+        [self readValue:[CBUUID UUIDWithString:BloodPressure_Service]
  characteristicUUID:[CBUUID UUIDWithString:DateTime_Char]
                   p:self.activePeripheral];
     
@@ -377,8 +415,18 @@ characteristicUUID:[CBUUID UUIDWithString:DateTime_Char]
     characteristicUUID:[CBUUID UUIDWithString:BloodPressureMeasurement_Char]
                      p:self.activePeripheral
                     on:YES];
-
+ 
   
+}
+
+- (void)readMeasurementForSetup
+{
+    NSLog(@"Enter readMeasurementForSetup to enable notification");
+    [self notification:[CBUUID UUIDWithString:BloodPressure_Service]
+    characteristicUUID:[CBUUID UUIDWithString:BloodPressureMeasurement_Char]
+                     p:self.activePeripheral
+                    on:YES];
+    
 }
 
 //- (void)readMeasurement

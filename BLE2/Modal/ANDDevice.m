@@ -801,9 +801,10 @@ characteristicUUID:[CBUUID UUIDWithString:SystemID_Char]
 - (void)peripheral:(CBPeripheral *)peripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error {
   //  UInt16 characteristicUUID = [self CBUUIDToInt:characteristic.UUID];
   CBUUID *charUUID = characteristic.UUID;
-  NSLog(@"charUUID is %@", charUUID);
-  NSLog(@"charValue is %@", characteristic.value);
-  NSLog(@"error is %@", error);
+    NSLog(@"entered didUpdateValueForChar");
+    NSLog(@"charUUID is %@", charUUID);
+    NSLog(@"charValue is %@", characteristic.value);
+    NSLog(@"error is %@", error);
   if (!error) {
     if ([charUUID isEqual:[CBUUID UUIDWithString:ManufacturerNameString_Char]]) {
       NSString* manufacturer = [NSString stringWithUTF8String:[characteristic.value bytes]];
@@ -825,6 +826,7 @@ characteristicUUID:[CBUUID UUIDWithString:SystemID_Char]
       [characteristic.value getBytes:&batlevel length:BatteryLevel_Length];
       self.batteryLevel = (float)batlevel;
     } else if ([charUUID isEqual:[CBUUID UUIDWithString:BloodPressureMeasurement_Char]]) {
+      NSLog(@"got Blood Pressure Measurement char");
       NSData *bpmData = [[NSData alloc] initWithData:characteristic.value];
       self.data = [[NSData alloc] initWithData:characteristic.value];
       

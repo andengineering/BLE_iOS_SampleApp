@@ -381,6 +381,8 @@
   return self;
 }
 
+
+#pragma mark - Write Time Stamp For Weight Scale
 - (void) setTime
 {
     NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
@@ -432,7 +434,6 @@
     
 }
 
-
 - (void)readMeasurement
 {
     NSLog(@"ws readMeasurement");
@@ -458,6 +459,15 @@
     
     
 }
+
+-(void)readMeasurementForSetup
+{
+    NSLog(@"Enter readMeasurementForSetup within weight scale ");
+    [self notification:[CBUUID UUIDWithString:WeightScale_Service]
+    characteristicUUID:[CBUUID UUIDWithString:WeightScaleMeasurement_Char]
+                     p:self.activePeripheral on:YES];
+}
+
 
 /*
 - (void)readMeasurement
