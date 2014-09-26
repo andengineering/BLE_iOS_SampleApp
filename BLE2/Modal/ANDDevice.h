@@ -20,6 +20,10 @@
 
 @end
 @interface ANDDevice : NSObject <CBCentralManagerDelegate, CBPeripheralDelegate>
+{
+    BOOL _shouldScan;
+    BOOL isWeightScale;
+}
 
 @property (nonatomic) float batteryLevel;
 
