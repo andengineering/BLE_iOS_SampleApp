@@ -521,6 +521,8 @@ characteristicUUID:[CBUUID UUIDWithString:SystemID_Char]
 //----------------------------------------------------------------------------------------------------
 - (void)centralManagerDidUpdateState:(CBCentralManager *)central {
   NSLog(@"Status of CoreBluetooth central manager changed %ld (%s)\r\n",central.state,[self centralManagerStateToString:central.state]);
+    if (_shouldScan)
+        [self performSelector:@selector(findBLEPeripherals) withObject:nil];
 }
 
 /*!
@@ -588,6 +590,7 @@ characteristicUUID:[CBUUID UUIDWithString:SystemID_Char]
   self.activePeripheral.delegate = self;
   [self.CM connectPeripheral:self.activePeripheral options:nil];
   self.connectionStats = @"Connecting..";
+  _shouldScan = YES;
   [self.CM stopScan];
 }
 
@@ -608,6 +611,7 @@ characteristicUUID:[CBUUID UUIDWithString:SystemID_Char]
   self.activePeripheral = peripheral;
   [self.activePeripheral discoverServices:nil];
   self.connectionStats = @"Connected";
+  _shouldScan = YES;
   [central stopScan];
 }
 
@@ -707,17 +711,19 @@ characteristicUUID:[CBUUID UUIDWithString:SystemID_Char]
  */
 - (int) findBLEPeripherals {
   NSLog(@"findBLEPeripherals %ld", self.CM.state);
+  _shouldScan = YES;
+    if (self.CM.state  == CBCentralManagerStatePoweredOn) {
+        [self.CM scanForPeripheralsWithServices:nil options:nil];
+    }
+  self.connectionStats = @"Scanning";
+
+  return 0; // Started scanning OK !
 
 //  if (self.CM.state  != CBCentralManagerStatePoweredOn) {
 //    NSLog(@"CoreBluetooth not correctly initialized !\r\n");
 //    NSLog(@"State = %d (%s)\r\n",self.CM.state,[self centralManagerStateToString:self.CM.state]);
 //    return -1;
-//  }
-  
-  [self.CM scanForPeripheralsWithServices:nil options:nil]; // Start scanning
-//  self.connectionStats = @"Scanning";
-  NSLog(@"Scanning");
-  return 0; // Started scanning OK !
+//
 }
 
 /*
