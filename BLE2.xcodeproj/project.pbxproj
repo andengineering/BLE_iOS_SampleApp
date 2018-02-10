@@ -246,8 +246,6 @@
 		3C506F6B187BFB4800F436D5 /* WCWSGraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCWSGraphView.h; sourceTree = "<group>"; };
 		3C506F6C187BFB4800F436D5 /* WCWSGraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCWSGraphView.m; sourceTree = "<group>"; };
 		3C506F72187BFF0A00F436D5 /* graph_bg-01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "graph_bg-01.png"; sourceTree = "<group>"; };
-		3CE6BEE41891F7AB007D497B /* ADDouble.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADDouble.h; sourceTree = "<group>"; };
-		3CE6BEE51891F7AB007D497B /* ADDouble.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADDouble.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -358,7 +356,6 @@
 		3C506E2A187B46F500F436D5 /* Library */ = {
 			isa = PBXGroup;
 			children = (
-				3CE6BEE31891F7AB007D497B /* ADDouble2 */,
 				3C506F47187BEBCB00F436D5 /* MHTabBarController */,
 				3C506E2B187B46F500F436D5 /* JASidePanels */,
 			);
@@ -379,7 +376,6 @@
 		3C506E51187B473600F436D5 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				3CE6BEDF1891F315007D497B /* Double2 */,
 				3C506F16187BCA5900F436D5 /* DetailController */,
 				3C506E5D187B47C200F436D5 /* Setting */,
 				3C506E57187B477700F436D5 /* ADLeftBarViewController.h */,
@@ -618,22 +614,6 @@
 			);
 			path = GraphView;
 			sourceTree = "<group>";
-		};
-		3CE6BEDF1891F315007D497B /* Double2 */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Double2;
-			sourceTree = "<group>";
-		};
-		3CE6BEE31891F7AB007D497B /* ADDouble2 */ = {
-			isa = PBXGroup;
-			children = (
-				3CE6BEE41891F7AB007D497B /* ADDouble.h */,
-				3CE6BEE51891F7AB007D497B /* ADDouble.m */,
-			);
-			path = ADDouble2;
-			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXGroup section */
 

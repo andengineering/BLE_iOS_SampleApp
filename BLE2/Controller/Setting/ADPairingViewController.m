@@ -132,6 +132,7 @@
   {
       NSLog(@"Enter bp device");
       ADBloodPressure *bp = [[ADBloodPressure alloc] initWithDevice:self.device];
+      [bp setTime];
      [bp readMeasurementForSetup];
   }else if ([self.type isEqual:@"ws"])
   {
