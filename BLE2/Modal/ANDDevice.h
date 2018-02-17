@@ -12,10 +12,12 @@
 @protocol  ANDDeviceDelegate <NSObject>
 @optional
 - (void) deviceReady;
+- (void) devicesetTime;
 - (void) gotWeight:(NSDictionary *) data;
 - (void) gotBloodPressure:(NSDictionary *)data;
 - (void) gotDevice:(CBPeripheral *)peripheral;
 - (void) gotActivity:(NSData *)data;
+- (void) devicesetBuffer;
 
 
 @end

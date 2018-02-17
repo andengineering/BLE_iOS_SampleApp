@@ -93,16 +93,34 @@
     NSLog(@"BP Device");
     ADBloodPressure *bp = [[ADBloodPressure alloc] initWithDevice:self.device];
     [bp setTime];
-    [bp readMeasurement];
+    [bp readMeasurementForSetup];
   } else if ([self.type isEqual:@"ws"]) {
     ADWeightScale *ws = [[ADWeightScale alloc] initWithDevice:self.device];
-    NSLog(@"WS Device");
-    [ws setTime];
-    [ws readMeasurement];
+    NSLog(@"WS Device in dashboard");
+   // [ws setTime];
+    [ws readMeasurementForSetup];
   } else if ([self.type isEqual:@"am"]) {
     ADActivityMonitor *am = [[ADActivityMonitor alloc] initWithDevice:self.device];
     [am readHeader];
   }
+}
+
+- (void) devicesetTime
+{
+    NSLog(@"Sim, called the device set time");
+    if ([self.type isEqual:@"bp"])
+    {
+        NSLog(@"Enter bp device");
+        ADBloodPressure *bp = [[ADBloodPressure alloc] initWithDevice:self.device];
+        
+    }else if ([self.type isEqual:@"ws"])
+    {
+        NSLog(@"Enter WS device");
+        ADWeightScale *ws = [[ADWeightScale alloc]initWithDevice:self.device];
+        [ws setTime];
+        
+    }
+    
 }
 
 - (void)gotBloodPressure:(NSDictionary *)data
@@ -129,7 +147,7 @@
 
 - (void)gotWeight:(NSDictionary *)data
 {
-  NSLog(@"gotWeight");
+  NSLog(@"gotWeight in dashboard");
   [self.device.CM cancelPeripheralConnection:self.device.activePeripheral];
   [self.device findBLEPeripherals];
 //  NSString *displayData = [NSString stringWithFormat:@"WS: %0.1f %@", [[data valueForKey:@"weight"] doubleValue] / 10, [data valueForKey:@"unit"]];

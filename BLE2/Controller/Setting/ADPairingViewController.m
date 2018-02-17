@@ -132,16 +132,54 @@
   {
       NSLog(@"Enter bp device");
       ADBloodPressure *bp = [[ADBloodPressure alloc] initWithDevice:self.device];
-    [bp setTime];
+    //[bp setTime];
      [bp readMeasurementForSetup];
   }else if ([self.type isEqual:@"ws"])
   {
      NSLog(@"Enter WS device");
      ADWeightScale *ws = [[ADWeightScale alloc]initWithDevice:self.device];
-      [ws setTime];
-     [ws readMeasurementForSetup];
+    // [ws setTime];
+    [ws readMeasurementForSetup];
+     
+      
   }
-  [self.device readDeviceInformation];
+  //[self.device readDeviceInformation];
 }
+
+- (void) devicesetTime
+{
+    if ([self.type isEqual:@"bp"])
+    {
+        NSLog(@"Enter bp device");
+        ADBloodPressure *bp = [[ADBloodPressure alloc] initWithDevice:self.device];
+        [bp setTime];
+       
+    }else if ([self.type isEqual:@"ws"])
+    {
+        NSLog(@"Enter WS device to set time");
+        ADWeightScale *ws = [[ADWeightScale alloc]initWithDevice:self.device];
+        [ws setTime];
+    
+    }
+    
+}
+
+-(void) devicesetBuffer
+{
+    if ([self.type isEqual:@"bp"])
+    {
+        NSLog(@"Enter bp device");
+        ADBloodPressure *bp = [[ADBloodPressure alloc] initWithDevice:self.device];
+        
+    }else if ([self.type isEqual:@"ws"])
+    {
+        NSLog(@"Enter WS for set buffer device");
+        ADWeightScale *ws = [[ADWeightScale alloc]initWithDevice:self.device];
+        [ws setBuffer];
+      
+    }
+    
+}
+
 
 @end

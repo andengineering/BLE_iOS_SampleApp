@@ -385,6 +385,7 @@
 #pragma mark - Write Time Stamp For Weight Scale
 - (void) setTime
 {
+    NSLog(@"Sim, calling setTime in adweightscale");
     NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
     NSDateComponents *components = [calendar components:NSDayCalendarUnit |NSMonthCalendarUnit | NSYearCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit fromDate:[NSDate date]];
     
@@ -468,6 +469,49 @@
                      p:self.activePeripheral on:YES];
 }
 
+- (void) turnOffBuffering
+{
+    NSLog(@"Sim, calling the tunfoffbuffering");
+    char bytes[4];
+    
+    bytes[0] = 3;      // Size of data we are sending
+    bytes[1] = 1;       // Setting this to 1 means "writing data"
+    bytes[2] = 0xA6;    // Buffer size is the command we want to execute
+    bytes[3] = 0;       // First byte after command turned on means clear buffer;
+    
+    NSData *data = [[NSData alloc] initWithBytes:&bytes length:sizeof(bytes)];
+    
+    // Note... Brent derived the UUIDs for the service and for the customer characteristic by listing out all of
+    // services found during pairing and all of the characteristics of each service.  I found in a document from A&D
+    // the hex string for the BloodPressureCustomCharacteristic, but couldn't figoure out the service because it wasn't
+    // in the document so I got it by dumping services and characteristics from the device.
+    [self writeValue:[CBUUID UUIDWithString: AND_Service]
+  characteristicUUID:[CBUUID UUIDWithString: AND_Char]
+                   p:self.activePeripheral
+                data:data];
+    
+}
+
+- (void) deleteMemory
+{
+    
+    char bytes[3];
+    
+    bytes[0] = 2;      // Size of data we are sending
+    bytes[1] = 1;       // Setting this to 1 means "writing data"
+    bytes[2] = 0x12;    // Buffer size is the command we want to execute
+    
+    NSData *data = [[NSData alloc] initWithBytes:&bytes length:sizeof(bytes)];
+    // Note... Brent derived the UUIDs for the service and for the customer characteristic by listing out all of
+    // services found during pairing and all of the characteristics of each service.  I found in a document from A&D
+    // the hex string for the BloodPressureCustomCharacteristic, but couldn't figoure out the service because it wasn't
+    // in the document so I got it by dumping services and characteristics from the device.
+    [self writeValue:[CBUUID UUIDWithString: AND_Service]
+  characteristicUUID:[CBUUID UUIDWithString: AND_Char]
+                   p:self.activePeripheral
+                data:data];
+    
+}
 
 /*
 - (void)readMeasurement
@@ -491,6 +535,26 @@
 - (void) pair
 {
   
+}
+
+- (void) setBuffer {
+    NSLog(@"Sim, calling the tunfoffbuffering");
+    char bytes[4];
+    bytes[0] = 3;      // Size of data we are sending
+    bytes[1] = 1;       // Setting this to 1 means "writing data"
+    bytes[2] = 0xA6;    // Buffer size is the command we want to execute
+    bytes[3] = 0;       // First byte after command turned on means clear buffer;
+    
+    NSData *data = [[NSData alloc] initWithBytes:&bytes length:sizeof(bytes)];
+    
+    // Note... Brent derived the UUIDs for the service and for the customer characteristic by listing out all of
+    // services found during pairing and all of the characteristics of each service.  I found in a document from A&D
+    // the hex string for the BloodPressureCustomCharacteristic, but couldn't figoure out the service because it wasn't
+    // in the document so I got it by dumping services and characteristics from the device.
+    [self writeValue:[CBUUID UUIDWithString: AND_Service]
+  characteristicUUID:[CBUUID UUIDWithString: AND_Char]
+                   p:self.activePeripheral
+                data:data];
 }
 
 @end

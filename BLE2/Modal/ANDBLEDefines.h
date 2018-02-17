@@ -24,7 +24,7 @@
 #define BloodPressureDateTime_Char                          @"2A08"
 
 //#define WeightScale_Service                                 @"18EF"
-#define WeightScale_Service                                 @"4100"
+#define WeightScale_Service                                 @"23434100-1FE4-1EFF-80CB-00FF78297D8B"
 //#define WeightScaleMeasurement_Char                         @"2ACF"
 //#define WeightScaleFeature_Char                             @"2ACE"
 #define WeightScaleMeasurement_Char                        @"23434101-1FE4-1EFF-80CB-00FF78297D8B"

@@ -55,5 +55,9 @@ typedef NS_ENUM(NSInteger, ARWeightScaleOrder) {
 - (void)pair;
 - (void)readMeasurement;
 -(void) readMeasurementForSetup;
+-(void) turnOffBuffering;
+-(void) deleteMemory;
+-(void) setTime;
+-(void) setBuffer;
 
 @end

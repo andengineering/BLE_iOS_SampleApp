@@ -372,7 +372,7 @@ characteristicUUID:[CBUUID UUIDWithString:SystemID_Char]
        CBService *s = [p.services objectAtIndex:i];
       if ([p.name rangeOfString:@"A&D_UC-352"].location != NSNotFound)
       {
-          //NSLog(@"WEIGHT SCALE Ser %@",s.UUID.UUIDString);
+          if ([self compareCBUUID:s.UUID UUID2:UUID])
           return s;//AJAY
       }
       else
@@ -486,8 +486,10 @@ characteristicUUID:[CBUUID UUIDWithString:SystemID_Char]
  *
  */
 -(CBCharacteristic *) findCharacteristicFromUUID:(CBUUID *)UUID service:(CBService*)service {
+     NSLog(@"the base characteristics to be compared is  %s \n",[self CBUUIDToString:UUID]);
   for(int i=0; i < service.characteristics.count; i++) {
     CBCharacteristic *c = [service.characteristics objectAtIndex:i];
+       NSLog(@"the characteristics extracted is  %s \n",[self CBUUIDToString:c.UUID]);
     if ([self compareCBUUID:c.UUID UUID2:UUID]) return c;
   }
   return nil; //Characteristic not found on this service
@@ -667,8 +669,9 @@ characteristicUUID:[CBUUID UUIDWithString:SystemID_Char]
     CBCharacteristic *c = [s.characteristics objectAtIndex:(s.characteristics.count - 1)];
 //    NSLog(@"characteristic.UUID %@ and c.UUID %@", characteristic.UUID, c.UUID);
     if([self compareCBUUID:characteristic.UUID UUID2:c.UUID]) {
-      NSLog(@"Finished discovering characteristics");
-      [self.delegate deviceReady];
+      NSLog(@"Finished discovering characteristics now set time");
+    //  [self.delegate deviceReady];
+        [self.delegate devicesetTime];
     }
 
   }
@@ -904,10 +907,12 @@ characteristicUUID:[CBUUID UUIDWithString:SystemID_Char]
                 [data setValue:@"lb" forKey:@"unit"];
             }
             NSNumber* weightValue= [NSNumber numberWithInteger:value];
+            NSLog(@"Sim, the weight Value is %@", weightValue);
             [data setValue:weightValue forKey:@"weight"];
             [data setValue:[NSDate new] forKey:@"time"];
             [self.delegate gotWeight:data];
         } else {
+            NSLog(@"Sim, unit coming in without a date and time stamp");
             int unit = *(int *)[[weightData subdataWithRange:NSMakeRange(0, 1)] bytes];
             if (unit == 0) {
                 NSLog(@"unit is kg");
@@ -918,6 +923,7 @@ characteristicUUID:[CBUUID UUIDWithString:SystemID_Char]
             }
             int value = *(int *)[[weightData subdataWithRange: NSMakeRange(1,2)] bytes];
             NSNumber* weightValue= [NSNumber numberWithInteger:value];
+            NSLog(@"Sim, the weight Value without time stamp is %@", weightValue);
             [data setValue:weightValue forKey:@"weight"];
             [data setValue:[NSDate new] forKey:@"time"];
             [self.delegate gotWeight:data];
@@ -972,6 +978,25 @@ characteristicUUID:[CBUUID UUIDWithString:SystemID_Char]
 
 - (void)peripheral:(CBPeripheral *)peripheral didWriteValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error {
   NSLog(@"didWriteValueForCharacteristic called!");
+    if ([peripheral.name rangeOfString:@"A&D_UC-352"].location != NSNotFound) {
+        if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:DateTime_Char]])  {
+            if ([self.delegate respondsToSelector:@selector(devicesetBuffer)]) {
+                NSLog(@"Sim, calling the set buffer command during pairing");
+                [self.delegate devicesetBuffer];
+            }  else {
+                NSLog(@"Sim, case of set time while taking measurement ") ;
+                [self.delegate deviceReady];
+                      
+            }
+        } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:AND_Char ]]) {
+            NSLog(@"Successfully wrote the buffer for the custom char now enable notification");
+            [self.delegate deviceReady];
+        }
+    }
+    
+    //Check for time
+    //Check for buffer
+    //Last call the deviceReady with only notification
 }
 
 - (void)peripheral:(CBPeripheral *)peripheral didWriteValueForDescriptor:(CBDescriptor *)descriptor error:(NSError *)error {
