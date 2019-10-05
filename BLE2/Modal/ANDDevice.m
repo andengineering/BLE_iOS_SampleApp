@@ -489,8 +489,8 @@ characteristicUUID:[CBUUID UUIDWithString:SystemID_Char]
      NSLog(@"the base characteristics to be compared is  %s \n",[self CBUUIDToString:UUID]);
   for(int i=0; i < service.characteristics.count; i++) {
     CBCharacteristic *c = [service.characteristics objectAtIndex:i];
-       NSLog(@"the characteristics extracted is  %s \n",[self CBUUIDToString:c.UUID]);
-    if ([self compareCBUUID:c.UUID UUID2:UUID]) return c;
+      
+if ([self compareCBUUID:c.UUID UUID2:UUID]) return c;
   }
   return nil; //Characteristic not found on this service
 }
@@ -556,6 +556,11 @@ characteristicUUID:[CBUUID UUIDWithString:SystemID_Char]
 }
 
 - (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI {
+    NSLog(@"didDiscoverPeripheral: %@\r\n", peripheral.name);
+    NSLog(@"the advertisement data is: %@\r\n", advertisementData);
+    
+   
+    
 //  NSString *deviceName = @"A&D BLE Pedometer";
 //  NSString *deviceName2 = @"A&D Pedometer";
 //  NSString *deviceName3 = @"A&D BLP";
@@ -572,9 +577,9 @@ characteristicUUID:[CBUUID UUIDWithString:SystemID_Char]
 //  } else {
 //    NSLog(@"Peripheral not a keyfob or callback was not because of a ScanResponse\n");
 //  }
-  [self.delegate gotDevice:peripheral];  
+    [self.delegate gotDevice:peripheral withAdvertisementData:advertisementData];
   
-  NSLog(@"didDiscoverPeripheral: %@\r\n", peripheral.name);
+  
 }
 
 /*!
@@ -780,13 +785,13 @@ characteristicUUID:[CBUUID UUIDWithString:SystemID_Char]
     NSLog(@"Sim trial Updated notification state for characteristic with UUID %s on service with  UUID %s on peripheral with UUID %@\r\n",[self CBUUIDToString:characteristic.UUID],[self CBUUIDToString:characteristic.service.UUID],[peripheral.identifier UUIDString]);
     if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BloodPressureMeasurement_Char]]) {
       self.data = [[NSData alloc] initWithData:characteristic.value];
-      NSLog(@"data is %@", self.data);
-//      int sys = *(int *)[[self.data subdataWithRange:NSMakeRange(1, 1)] bytes];
-//      int dia = *(int *)[[self.data subdataWithRange:NSMakeRange(3, 1)] bytes];
-//      int pul = *(int *)[[self.data subdataWithRange:NSMakeRange(7, 1)] bytes];
-//      int mean = *(int *)[[self.data subdataWithRange:NSMakeRange(5, 1)] bytes];
-//      NSLog(@"sys %d dia %d pul %d mean %d", sys, dia, pul, mean);
-    }
+        if ([self.delegate respondsToSelector:@selector(disconnectPeripheral:)])
+        {
+             [self.delegate disconnectPeripheral:peripheral];
+        }
+     
+    
+     }
   }
   else {
     NSLog(@"Error in setting notification state for characteristic with UUID %s on service with  UUID %s on peripheral with UUID %@\r\n",[self CBUUIDToString:characteristic.UUID],[self CBUUIDToString:characteristic.service.UUID],[peripheral.identifier UUIDString]);
@@ -978,16 +983,18 @@ characteristicUUID:[CBUUID UUIDWithString:SystemID_Char]
 
 - (void)peripheral:(CBPeripheral *)peripheral didWriteValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error {
   NSLog(@"didWriteValueForCharacteristic called!");
-    if ([peripheral.name rangeOfString:@"A&D_UC-352"].location != NSNotFound) {
+    if ([peripheral.name rangeOfString:@"A&D"].location != NSNotFound) {
         if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:DateTime_Char]])  {
-            if ([self.delegate respondsToSelector:@selector(devicesetBuffer)]) {
+            NSLog(@"Case of set time while taking measurement ") ;
+            [self.delegate deviceReady];
+          /*  if ([self.delegate respondsToSelector:@selector(devicesetBuffer)]) {
                 NSLog(@"Sim, calling the set buffer command during pairing");
                 [self.delegate devicesetBuffer];
             }  else {
                 NSLog(@"Sim, case of set time while taking measurement ") ;
                 [self.delegate deviceReady];
                       
-            }
+            }*/
         } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:AND_Char ]]) {
             NSLog(@"Successfully wrote the buffer for the custom char now enable notification");
             [self.delegate deviceReady];
@@ -1006,6 +1013,17 @@ characteristicUUID:[CBUUID UUIDWithString:SystemID_Char]
 - (void)peripheralDidUpdateRSSI:(CBPeripheral *)peripheral error:(NSError *)error {
   NSLog(@"peripheralDidupdateRSSI called!");
 }
+
+- (void) disconnectPeripheral:(CBPeripheral *)peripheral
+{
+    
+    NSLog(@"Called the disconnect peripheral device in device");
+    //Reset the connection device type
+    [self.CM cancelPeripheralConnection:peripheral];
+    _shouldScan = NO;
+    [self.CM stopScan];
+}
+
 
 
 

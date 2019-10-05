@@ -15,9 +15,10 @@
 - (void) devicesetTime;
 - (void) gotWeight:(NSDictionary *) data;
 - (void) gotBloodPressure:(NSDictionary *)data;
-- (void) gotDevice:(CBPeripheral *)peripheral;
+- (void) gotDevice:(CBPeripheral *)peripheral withAdvertisementData:(NSDictionary *)advertisementData;
 - (void) gotActivity:(NSData *)data;
 - (void) devicesetBuffer;
+- (void) disconnectPeripheral:(CBPeripheral *)peripheral;
 
 
 @end
@@ -130,5 +131,6 @@
 
 
 - (void) connectPeripheral:(CBPeripheral *)peripheral;
+- (void) disconnectPeripheral:(CBPeripheral *)peripheral;
 
 @end

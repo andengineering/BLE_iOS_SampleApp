@@ -84,10 +84,32 @@
   return cell;
 }
 
-- (void)gotDevice:(CBPeripheral *)peripheral
+- (void)gotDevice:(CBPeripheral *)peripheral withAdvertisementData:(NSDictionary *)advertisementData
 {
   NSLog(@"peripheral name is %@", peripheral.name);
-  if ([peripheral.name rangeOfString:@"A&D"].location != NSNotFound ||
+    if (peripheral.name != nil || peripheral.name != NULL) {
+        if ([peripheral.name rangeOfString:@"A&D"].location != NSNotFound) {
+            [self.devices setValue:peripheral forKey:peripheral.name];
+            [self.tableView reloadData];
+        }
+    }
+    /*NSString *localName = [advertisementData objectForKey:CBAdvertisementDataLocalNameKey];
+    if (localName != nil) {
+       NSLog(@"Sim, get the local name %@", localName);
+    }
+   
+    if ([localName rangeOfString:@"A&D"].location != NSNotFound ||
+        [localName rangeOfString:@"Murata"].location != NSNotFound ||
+        [localName rangeOfString:@"Life Trak Zone"].location != NSNotFound) {
+        if (![self.devices objectForKey:localName]) {
+            if (peripheral.name != nil) {
+                [self.devices setValue:peripheral forKey:localName];
+                [self.tableView reloadData];
+            }
+        }
+    }*/
+    
+ /* if ([peripheral.name rangeOfString:@"A&D"].location != NSNotFound ||
       [peripheral.name rangeOfString:@"Murata"].location != NSNotFound ||
       [peripheral.name rangeOfString:@"Life Trak Zone"].location != NSNotFound) {
     if (![self.devices objectForKey:peripheral.name]) {
@@ -96,7 +118,7 @@
         [self.tableView reloadData];
       }
     }
-  }
+  } */
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -114,7 +136,7 @@
            
         } else if ([device.name rangeOfString:@"651"].location != NSNotFound || [device.name rangeOfString:@"BLP"].location != NSNotFound)
         {
-            NSLog(@"Device selected is weight scale");
+            NSLog(@"Device selected is bloodpressure");
             self.type = @"bp";
             
         } else {
@@ -130,7 +152,7 @@
   self.device.connectionStats = @"Connected";
     if ([self.type isEqual:@"bp"])
   {
-      NSLog(@"Enter bp device");
+      NSLog(@"Enter bp device to setnotification");
       ADBloodPressure *bp = [[ADBloodPressure alloc] initWithDevice:self.device];
     //[bp setTime];
      [bp readMeasurementForSetup];
@@ -179,6 +201,14 @@
       
     }
     
+}
+
+- (void) disconnectPeripheral:(CBPeripheral *)peripheral
+{
+    NSLog(@"Called the disconnect peripheral device");
+     [self.device disconnectPeripheral:peripheral];
+    //Reset the connection device type
+  
 }
 
 

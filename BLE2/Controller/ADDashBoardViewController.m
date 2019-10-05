@@ -62,12 +62,31 @@
   }
 }
 
-- (void) gotDevice:(CBPeripheral *)peripheral
+- (void) gotDevice:(CBPeripheral *)peripheral withAdvertisementData:(NSDictionary *)advertisementData
 {
 //  NSArray *identifiers = [[NSArray alloc] initWithObjects:peripheral.identifier, nil];
 //  if ([self.device.CM retrievePeripheralsWithIdentifiers:identifiers]) {
 //    NSLog(@"%@ is a paired device", peripheral.name);
-  if (peripheral.name != nil) {
+    NSString *localName = [advertisementData objectForKey:CBAdvertisementDataLocalNameKey];
+    NSLog(@"Sim, get the local name %@", localName);
+    if (localName != nil) {
+        if ([localName rangeOfString:@"A&D_UC-352"].location != NSNotFound) {
+            NSLog(@"ws");
+            self.type = @"ws";
+            [self.device connectPeripheral:peripheral];
+        } else if ([localName rangeOfString:@"651"].location != NSNotFound ||
+                   [localName rangeOfString:@"BLP"].location != NSNotFound) {
+            self.type = @"bp";
+            [self.device connectPeripheral:peripheral];
+        } else if ([localName rangeOfString:@"Life Trak Zone"].location != NSNotFound) {
+            self.type = @"am";
+            NSLog(@"list is %@", self.device.peripherials);
+            [self.device connectPeripheral:peripheral];
+        }
+        //    weight is 352,  bp is 651
+    }
+    
+    /* if (peripheral.name != nil) {
     if ([peripheral.name rangeOfString:@"A&D_UC-352"].location != NSNotFound) {
       NSLog(@"ws");
       self.type = @"ws";
@@ -82,7 +101,7 @@
       [self.device connectPeripheral:peripheral];
     }
     //    weight is 352,  bp is 651
-  }
+  }*/
 }
 
 - (void) deviceReady
@@ -92,7 +111,7 @@
   if ([self.type isEqual:@"bp"]) {
     NSLog(@"BP Device");
     ADBloodPressure *bp = [[ADBloodPressure alloc] initWithDevice:self.device];
-    [bp setTime];
+   // [bp setTime];
     [bp readMeasurementForSetup];
   } else if ([self.type isEqual:@"ws"]) {
     ADWeightScale *ws = [[ADWeightScale alloc] initWithDevice:self.device];
@@ -109,9 +128,9 @@
 {
     NSLog(@"Sim, called the device set time");
     if ([self.type isEqual:@"bp"])
-    {
-        NSLog(@"Enter bp device");
+    {   NSLog(@"Enter bp device");
         ADBloodPressure *bp = [[ADBloodPressure alloc] initWithDevice:self.device];
+        [bp setTime];
         
     }else if ([self.type isEqual:@"ws"])
     {
