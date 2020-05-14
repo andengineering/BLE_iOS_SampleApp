@@ -52,4 +52,8 @@
 #define ActivityMonitorRead_Char                            @"ffa3"
 #define ActivityMonitorWrite_Char                           @"ffa1"
 
+#define CurrentTime_Service                                 @"1805"
+#define CurrentTime_Char                                    @"2A2B"
+
+
 #endif

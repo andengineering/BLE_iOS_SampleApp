@@ -50,5 +50,6 @@ typedef NS_ENUM(NSInteger, ADBPOrder) {
 - (void)pair;
 - (void)readMeasurement;
 - (void)readMeasurementForSetup;
+- (void)setTimeOfCurrentTimeService;
 
 @end

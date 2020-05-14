@@ -672,12 +672,20 @@ if ([self compareCBUUID:c.UUID UUID2:UUID]) return c;
     }
     CBService *s = [peripheral.services objectAtIndex:(peripheral.services.count - 1)];
     CBCharacteristic *c = [s.characteristics objectAtIndex:(s.characteristics.count - 1)];
-//    NSLog(@"characteristic.UUID %@ and c.UUID %@", characteristic.UUID, c.UUID);
-    if([self compareCBUUID:characteristic.UUID UUID2:c.UUID]) {
-      NSLog(@"Finished discovering characteristics now set time");
-    //  [self.delegate deviceReady];
-        [self.delegate devicesetTime];
-    }
+
+      if([peripheral.name hasPrefix:@"UA-1101BLE"] || [peripheral.name hasPrefix:@"UB-1101BLE"] ||
+         [peripheral.name hasPrefix:@"UA-1200BLE"] || [peripheral.name hasPrefix:@"UB-1100BLE"]) {
+          NSLog(@"Sim, enter case of UB-1100 device");
+          [self.delegate deviceReady];
+          
+      } else {
+          if([self compareCBUUID:characteristic.UUID UUID2:c.UUID]) {
+            NSLog(@"Finished discovering characteristics now set time");
+          //  [self.delegate deviceReady];
+              [self.delegate devicesetTime];
+          }
+      }
+
 
   }
 }

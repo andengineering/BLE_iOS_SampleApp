@@ -82,8 +82,13 @@
             self.type = @"am";
             NSLog(@"list is %@", self.device.peripherials);
             [self.device connectPeripheral:peripheral];
+        }else if([peripheral.name hasPrefix:@"UA-1101BLE"] || [peripheral.name hasPrefix:@"UB-1101BLE"] ||
+                 [peripheral.name hasPrefix:@"UA-1200BLE"] || [peripheral.name hasPrefix:@"UB-1100BLE"]) {
+             self.type = @"cd_bp";
+            NSLog(@"calling connection on UB-1100 %@", self.device.peripherials);
+             [self.device connectPeripheral:peripheral];
         }
-        //    weight is 352,  bp is 651
+       
     }
     
     /* if (peripheral.name != nil) {
@@ -121,7 +126,12 @@
   } else if ([self.type isEqual:@"am"]) {
     ADActivityMonitor *am = [[ADActivityMonitor alloc] initWithDevice:self.device];
     [am readHeader];
-  }
+  }else if ([self.type isEqual:@"cd_bp"]) {
+     NSLog(@"BP Ultraconnect Device");
+     ADBloodPressure *bp = [[ADBloodPressure alloc] initWithDevice:self.device];
+     [bp setTimeOfCurrentTimeService];
+     [bp readMeasurementForSetup];
+   }
 }
 
 - (void) devicesetTime

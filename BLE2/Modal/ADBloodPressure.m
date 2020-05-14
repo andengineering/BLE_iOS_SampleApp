@@ -428,6 +428,44 @@ characteristicUUID: [CBUUID UUIDWithString:BloodPressureMeasurement_Char]
                     on:YES];
     
 }
+- (void)setTimeOfCurrentTimeService {
+    
+    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSDateComponents *comp = [calendar components:NSDayCalendarUnit |NSMonthCalendarUnit | NSYearCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit | NSWeekdayCalendarUnit fromDate:[NSDate date]];
+    
+    UInt8 value[10] = {0x00};
+    NSInteger index = 0;
+    value[index++] = [comp year];
+    value[index++] = ([comp year] >> 8);
+    value[index++] = [comp month];
+    value[index++] = [comp day];
+    value[index++] = [comp hour];
+    value[index++] = [comp minute];
+    value[index++] = [comp second];
+    // OS Format
+    // 1=sun ..... 7=sat  0=unknown
+    NSInteger weekDay = comp.weekday;
+    // DayOfWeek Format
+    // 1=mon ..... 7=sun  0=unknown
+    if (weekDay == 0) {
+        value[index++] = weekDay;
+    }
+    else if (weekDay == 1) {
+        value[index++] = 7;
+    }
+    else {
+        weekDay -= 1;
+        value[index++] = weekDay;
+    }
+    
+    NSData *data = [[NSData alloc] initWithBytes:&value length:sizeof(value)];
+    NSLog(@"data is %@", data);
+    
+    [self writeValue:[CBUUID UUIDWithString: CurrentTime_Service]
+  characteristicUUID:[CBUUID UUIDWithString: CurrentTime_Char]
+                   p:self.activePeripheral
+                data:data];
+}
 
 //- (void)readMeasurement
 //{
