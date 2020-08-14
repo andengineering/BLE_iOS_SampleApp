@@ -793,8 +793,10 @@ if ([self compareCBUUID:c.UUID UUID2:UUID]) return c;
     NSLog(@"Sim trial Updated notification state for characteristic with UUID %s on service with  UUID %s on peripheral with UUID %@\r\n",[self CBUUIDToString:characteristic.UUID],[self CBUUIDToString:characteristic.service.UUID],[peripheral.identifier UUIDString]);
     if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BloodPressureMeasurement_Char]]) {
       self.data = [[NSData alloc] initWithData:characteristic.value];
+       NSLog(@"data is %@", self.data);
         if ([self.delegate respondsToSelector:@selector(disconnectPeripheral:)])
         {
+            NSLog(@"Test, entering the disconnect Peripheral");
              [self.delegate disconnectPeripheral:peripheral];
         }
      
@@ -853,7 +855,7 @@ if ([self compareCBUUID:c.UUID UUID2:UUID]) return c;
       self.data = [[NSData alloc] initWithData:characteristic.value];
       
         if (bpmData.length >= 12) { //If time has been set during pairing
-            
+            NSLog(@"Enter case of length of data greater than 12");
             int flag = *(int *)[[self.data subdataWithRange:NSMakeRange(0, 1)] bytes];
             
             int sys = *(int *)[[self.data subdataWithRange:NSMakeRange(1, 2)] bytes];
@@ -875,16 +877,17 @@ if ([self compareCBUUID:c.UUID UUID2:UUID]) return c;
             int seconds = *(int *)[[self.data subdataWithRange:NSMakeRange(13, 1)] bytes];
             
             int pul = *(int *)[[self.data subdataWithRange:NSMakeRange(14, 2)] bytes];
-            NSMutableDictionary *data = [NSMutableDictionary new];
-            [data setValue:[NSNumber numberWithInteger:sys] forKey:@"systolic"];
-            [data setValue:[NSNumber numberWithInteger:dia] forKey:@"diastolic"];
-            [data setValue:[NSNumber numberWithInteger:pul] forKey:@"pulse"];
-            [data setValue:[NSNumber numberWithInteger:mean] forKey:@"mean"];
-            [self.delegate gotBloodPressure:data];
+            NSMutableDictionary *bp_data = [NSMutableDictionary new];
+            [bp_data setValue:[NSNumber numberWithInteger:sys] forKey:@"systolic"];
+            [bp_data setValue:[NSNumber numberWithInteger:dia] forKey:@"diastolic"];
+            [bp_data setValue:[NSNumber numberWithInteger:pul] forKey:@"pulse"];
+            [bp_data setValue:[NSNumber numberWithInteger:mean] forKey:@"mean"];
+         //   [self.delegate gotBloodPressure:bp_data];
             NSLog(@"sys %d dia %d pul %d mean %d", sys, dia, pul, mean);
             
             
         } else { //If time has not been set then do the below
+            NSLog(@"Enter case of data less than length");
             int sys = *(int *)[[self.data subdataWithRange:NSMakeRange(1, 1)] bytes];
             int dia = *(int *)[[self.data subdataWithRange:NSMakeRange(3, 1)] bytes];
             int pul = *(int *)[[self.data subdataWithRange:NSMakeRange(7, 1)] bytes];
@@ -894,7 +897,7 @@ if ([self compareCBUUID:c.UUID UUID2:UUID]) return c;
             [data setValue:[NSNumber numberWithInteger:dia] forKey:@"diastolic"];
             [data setValue:[NSNumber numberWithInteger:pul] forKey:@"pulse"];
             [data setValue:[NSNumber numberWithInteger:mean] forKey:@"mean"];
-            [self.delegate gotBloodPressure:data];
+         //   [self.delegate gotBloodPressure:data];
             NSLog(@"sys %d dia %d pul %d mean %d", sys, dia, pul, mean);
         }
     
