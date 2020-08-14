@@ -882,8 +882,8 @@ if ([self compareCBUUID:c.UUID UUID2:UUID]) return c;
             [bp_data setValue:[NSNumber numberWithInteger:dia] forKey:@"diastolic"];
             [bp_data setValue:[NSNumber numberWithInteger:pul] forKey:@"pulse"];
             [bp_data setValue:[NSNumber numberWithInteger:mean] forKey:@"mean"];
-         //   [self.delegate gotBloodPressure:bp_data];
             NSLog(@"sys %d dia %d pul %d mean %d", sys, dia, pul, mean);
+            [self.delegate gotBloodPressure:bp_data];
             
             
         } else { //If time has not been set then do the below

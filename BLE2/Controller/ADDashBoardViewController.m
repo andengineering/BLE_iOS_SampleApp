@@ -48,6 +48,11 @@
 
 }
 
+-(void)viewDidAppear:(BOOL)animated{
+    NSLog(@"viewDidAppear function");
+   // [self.device findBLEPeripherals];
+}
+
 - (void)viewWillAppear:(BOOL)animated
 {
   NSLog(@"viewWillAppear");
@@ -155,8 +160,7 @@
 - (void)gotBloodPressure:(NSDictionary *)data
 {
   NSLog(@"gotBP");
-  [self.device.CM cancelPeripheralConnection:self.device.activePeripheral];
-  [self.device findBLEPeripherals];
+ 
 //  NSString *displayData = [NSString stringWithFormat:@"sys:%@ dia:%@ pulse:%@ mean:%@", [data valueForKey:@"systolic"], [data valueForKey:@"diastolic"], [data valueForKey:@"pulse"], [data valueForKey:@"mean"]];
   NSString *now = [WCTime printDateTimeWithDateNow:savingType];
   NSString *fixedTime = [WCTime convertDateTimeToFixedFormat:now];
@@ -172,6 +176,8 @@
   //  [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]].textLabel.text = displayData;
 //  self.display = displayData;
   [self.tableView reloadData];
+ // [self.device.CM cancelPeripheralConnection:self.device.activePeripheral];
+  [self.device findBLEPeripherals];
 }
 
 - (void)gotWeight:(NSDictionary *)data
