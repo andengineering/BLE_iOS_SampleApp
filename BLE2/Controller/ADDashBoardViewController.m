@@ -192,7 +192,7 @@
   
   ADWeightScale *ws = [[ADWeightScale alloc] initWithMT:fixedTime
                                                     MRT:fixedTime
-                                                 Weight:[NSString stringWithFormat:@"%0.1f", [[data valueForKey:@"weight"] doubleValue] / 10]
+                                                 Weight:[NSString stringWithFormat:@"%0.1f", [[data valueForKey:@"weight"] doubleValue]]
                                                    Unit:[data valueForKey:@"unit"]
                                                     Bmi:@"00"
                                                     UID:@"00"

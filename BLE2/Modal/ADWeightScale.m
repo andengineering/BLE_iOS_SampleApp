@@ -225,7 +225,7 @@
   WCSQLite *sharedSql = [WCSQLite initialize];
   sqlite3 *db = sharedSql.database;
   //  i'll need to save in KG always
-  NSString *sql = [NSString stringWithFormat:@"INSERT INTO WeightScaleMeasurements ('MeasurementTime', 'MeasurementReceivedTime', 'Weight', 'Units', 'BMI', 'UserID', 'isManualInput') VALUES ('%@', '%@', '%@', '%@', '%@', '%@', '%@');", self.measurementTime, self.measurementReceivedTime, [NSString stringWithFormat:@"%f", [[self weightInKG] floatValue]], @"kg", self.bmi, self.userID, self.isManualInput];
+  NSString *sql = [NSString stringWithFormat:@"INSERT INTO WeightScaleMeasurements ('MeasurementTime', 'MeasurementReceivedTime', 'Weight', 'Units', 'BMI', 'UserID', 'isManualInput') VALUES ('%@', '%@', '%@', '%@', '%@', '%@', '%@');", self.measurementTime, self.measurementReceivedTime, [NSString stringWithFormat:@"%f", [[self weightInLB] floatValue]], @"lb", self.bmi, self.userID, self.isManualInput];
   NSLog(@"sql is %@", sql);
   char *err;
   if (sqlite3_exec(db, [sql UTF8String], NULL, NULL, &err) != SQLITE_OK) {
@@ -295,7 +295,7 @@
   NSNumber *result = self.WSWeight;
   if ([self.units isEqualToString: @"kg"]) {
     double tmp = [self.WSWeight doubleValue] * 2.20462262185;
-    NSLog(@"weightInKG tmp is %f", tmp);
+    NSLog(@"weightInLB tmp is %f", tmp);
     result =[NSNumber numberWithDouble:tmp];
   }
   NSString *tmp2 = [NSString stringWithFormat:@"%.2f", [result doubleValue]];

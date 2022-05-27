@@ -922,7 +922,11 @@ if ([self compareCBUUID:c.UUID UUID2:UUID]) return c;
                 NSLog(@"unit is lb");
                 [data setValue:@"lb" forKey:@"unit"];
             }
-            NSNumber* weightValue= [NSNumber numberWithInteger:value];
+            //NSNumber* weightValue= [NSNumber numberWithInteger:value];
+            int weightValueInt = *(int*)[[weightData subdataWithRange:NSMakeRange(1, 2)] bytes];
+            float valueFloat = weightValueInt;
+            float weight = valueFloat/10.0;
+            NSNumber* weightValue= [NSNumber numberWithInteger:weight];
             NSLog(@"Sim, the weight Value is %@", weightValue);
             [data setValue:weightValue forKey:@"weight"];
             [data setValue:[NSDate new] forKey:@"time"];
