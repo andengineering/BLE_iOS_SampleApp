@@ -35,27 +35,6 @@
   return self;
 }
 
-- (void) setANDDeviceInformation
-{
-  NSLog(@"setDeviceInformation");
-  char bytes[13];
-  bytes[0] = 0x0A;
-  bytes[1] = 0x01;
-  bytes[2] = 0xA0;
-  bytes[3] = 0x30;
-  bytes[4] = 0x31;
-  bytes[5] = 0x32;
-  bytes[6] = 0x33;
-  bytes[7] = 0x34;
-  bytes[8] = 0x35;
-  bytes[9] = 0x36;
-  bytes[10] = 0x37;
-  bytes[11] = 0x38;
-  bytes[12] = 0x39;
-  NSData *data = [[NSData alloc] initWithBytes:&bytes length:sizeof(bytes)];
-  [self writeValue:[CBUUID UUIDWithString:AND_Service] characteristicUUID:[CBUUID UUIDWithString:AND_Char] p:self.activePeripheral data:data];
-}
-
 - (void) readANDDeviceInformation
 {
   NSLog(@"read DeviceInformation");
